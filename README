@@ -1,0 +1,45 @@
+# 🧠 ReparoML — Energy-Bounded Self-Repair in PyTorch
+
+**Author:** Cody R. Jenkins — Open Science Reparodynamics Initiative  
+**Version:** v1.0 (October 2025)  
+**License:** MIT  
+**Repository:** [BoneManTGRM/ReparoML](https://github.com/BoneManTGRM/ReparoML)
+
+---
+
+## 🎮 Run the Live Simulator
+
+Try the interactive web simulator directly in your browser:  
+👉 **[Run ReparoML Simulator](https://bonemantgrm.github.io/ReparoML/simulator/)**  
+
+Adjust sliders for:
+- Steps  
+- Fault Level  
+- Top-K% (TGRM selection)  
+- k_repair (Repair intensity)
+
+You’ll see live graphs for:
+- Accuracy over time  
+- Energy usage  
+- BPI (Bounded Power Index)  
+- Final Accuracy vs Energy scatter  
+
+---
+
+## 🚀 Quickstart (Python Version)
+
+```bash
+# install dependencies
+pip install -r requirements.txt
+
+# train baseline model
+python experiments/run_mnist_cnn.py --phase train --out outputs/mnist_baseline
+
+# inject controlled faults
+python experiments/run_mnist_cnn.py --phase fault --in_ckpt outputs/mnist_baseline/best.pt --out outputs/mnist_faults
+
+# repair with TGRM
+python experiments/run_mnist_cnn.py --phase repair --in_ckpt outputs/mnist_faults/faulted.pt --out outputs/mnist_repair
+
+# visualize results
+python experiments/plot_runs.py --dirs outputs/mnist_baseline outputs/mnist_faults outputs/mnist_repair
